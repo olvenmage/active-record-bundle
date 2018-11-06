@@ -1,0 +1,23 @@
+{
+  "name": "olveneer/active-record-bundle",
+  "type": "symfony-bundle",
+  "description": "Implements the active record system into doctrine",
+  "keywords": ["olveneer", "data", "processing", "api", "form", "processor", "simple"],
+  "homepage": "https://github.com/olvenmage/active-record-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Douwe Gnodde"
+    }
+  ],
+  "require": {
+    "php":                      ">=5.5.0",
+    "symfony/framework-bundle": "~2.7|~3.0|~4.0",
+    "symfony/orm-pack": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Olveneer\\ActiveRecordBundle\\": ""
+    }
+  }
+}
