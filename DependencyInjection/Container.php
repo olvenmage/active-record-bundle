@@ -9,6 +9,7 @@ class Container
      * @var ContainerInterface
      */
     static protected $container;
+
     public static function set(ContainerInterface $container)
     {
         self::$container = $container;

@@ -1,0 +1,5 @@
+services:
+  olveneer.container:
+    class: Olveneer\ActiveRecordBundle\DependencyInjection\Container
+
+  Olveneer\ActiveRecordBundle\DependencyInjection\Container:       '@olveneer.container'

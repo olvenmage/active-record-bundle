@@ -1,5 +1,5 @@
 <?php
-namespace ActiveRecordBundle\Entity;
+namespace Olveneer\ActiveRecordBundle\Entity;
 
 use Olveneer\ActiveRecordBundle\DependencyInjection\Container;
 
