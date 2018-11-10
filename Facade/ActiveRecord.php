@@ -1,25 +1,31 @@
 <?php
-namespace Olveneer\ActiveRecordBundle\Entity;
+namespace Olveneer\ActiveRecordBundle\Facade;
 
-use Olveneer\ActiveRecordBundle\DependencyInjection\Container;
+use Olveneer\ActiveRecordBundle\Facade\Facade;
 
-class ActiveRecord extends Container
+class ActiveRecord extends Facade
 {
     protected static function getDoctrine()
     {
-        if (!self::$container->has('doctrine')) {
-            throw new \LogicException('The DoctrineBundle is not registered in your application.');
-        }
-        return self::$container->get('doctrine');
+        BundleChecker::checkDoctrine();
+
+        return self::get()->get('doctrine');
     }
     protected static function getEntityManager()
     {
         return self::getDoctrine()->getManagerForClass(get_called_class());
     }
+    
     protected static function getRepository()
     {
         return self::getDoctrine()->getRepository(get_called_class());
     }
+    
+    protected static function mirror()
+    {
+        return self::abstractMirror(self::getRepository());
+    }
+    
     /**
      * @param $id
      * @return null|static
