@@ -2,9 +2,12 @@
 
 namespace Olveneer\ActiveRecordBundle\Facade;
 
-
 use Olveneer\ActiveRecordBundle\Facade\Facade;
 
+/**
+ * Class BundleChecker
+ * @package Olveneer\ActiveRecordBundle\Facade
+ */
 class BundleChecker extends Facade
 {
     public static function checkDoctrine()
@@ -39,6 +42,13 @@ class BundleChecker extends Facade
     {
         if (!self::get()->has('session')) {
             throw new \LogicException('You do not have sessions enabled in your application. Enable them in "config/packages/framework.yaml".');
+        }
+    }
+
+    public static function checkTranslation()
+    {
+        if (!self::get()->has('translator')) {
+            throw new \LogicException('The TranslatorBundle is not registered in your application. Try running "composer require symfony/translation".');
         }
     }
 }

@@ -3,12 +3,21 @@
 namespace Olveneer\ActiveRecordBundle\Facade;
 
 
-use Olveneer\ActiveRecordBundle\Facade\Facade;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-class Authorization extends Facade
+/**
+ * Class Auth
+ * @package Olveneer\ActiveRecordBundle\Facade
+ */
+class Auth extends Facade
 {
 
+    /**
+     * @param $attributes
+     * @param null $subject
+     * @return bool
+     */
     public static function isGranted($attributes, $subject = null): bool
     {
         BundleChecker::checkSecurity();
@@ -16,19 +25,28 @@ class Authorization extends Facade
         return self::get()->get('security.authorization_checker')->isGranted($attributes, $subject);
     }
 
-    public static function getUser()
+    /**
+     * @return null|object|string
+     */
+    public static function user()
     {
         BundleChecker::checkSecurity();
 
-        $token = self::get()->get('security.token_storage')->getToken();
-
-        if ($token) {
-            return $token->getUser();
+        if (null === $token = self::get()->get('security.token_storage')->getToken()) {
+            return null;
         }
 
-        return false;
+        if (!\is_object($user = $token->getUser())) {
+            // e.g. anonymous authentication
+            return null;
+        }
+
+        return $user;
     }
 
+    /**
+     * @param UserInterface $user
+     */
     public static function login(UserInterface $user)
     {
         BundleChecker::checkSecurity();
